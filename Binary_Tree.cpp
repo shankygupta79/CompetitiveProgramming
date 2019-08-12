@@ -79,6 +79,37 @@ void printKthLevel(node*root,int k){
     return;
 
 }
+int diameter(node*root){
+	//largest distance btw any two nodes!
+	if(root==NULL){
+		return 0;
+	}
+	int op1 = height(root->left) + height(root->right);
+	int op2 = max(diameter(root->left),diameter(root->right));
+	return max(op1,op2);
+}
+void root2LeafAllPaths(node*root,vector<int> &v){
+
+	if(root==NULL){
+		return;
+	}
+
+	if(root->left==NULL and root->right==NULL){
+		v.push_back(root->data);
+		for(int i=0;i<v.size();i++){
+			cout<<v[i]<<" --> ";
+		}
+		cout<<endl;
+		v.pop_back();
+		return;
+	}
+	//rec case
+	v.push_back(root->data);
+	root2LeafAllPaths(root->left,v);
+	root2LeafAllPaths(root->right,v);
+	v.pop_back();
+	return;
+}
 
 void printAllLevels(node*root){
     int H = height(root);

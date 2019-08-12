@@ -98,6 +98,19 @@ void inorder(node*root){
     cout<<root->data<<",";
     inorder(root->right);
 }
+node* arr2bst(int *arr,int s,int e){
+	//base case
+	if(s>e){
+		return NULL;
+	}
+
+	int mid = (s+e)/2;
+	node*root = new node(arr[mid]);
+	root->left = arr2bst(arr,s,mid-1);
+	root->right = arr2bst(arr,mid+1,e);
+	return root;
+
+}
 
 node* deleteInBST(node*root,int data){
     if(root==NULL){
