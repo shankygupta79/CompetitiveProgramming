@@ -1,4 +1,5 @@
 #include <iostream>
+#include <bits/stdc++.h>
 #include<queue>
 using namespace std;
 
@@ -153,6 +154,35 @@ node* deleteInBST(node*root,int data){
         return root;
     }
 }
+int isBSTUtil(node* node, int min, int max){
+    if (node==NULL){
+        return 1;
+    }
+    if (node->data < min || node->data > max){
+        return 0;
+    }
+    return isBSTUtil(node->left, min, node->data-1) && isBSTUtil(node->right, node->data+1, max);
+}
+int isBST(node* node){
+    return(isBSTUtil(node, INT_MIN, INT_MAX));
+}
+struct node *lca(struct node* root, int n1, int n2)
+{
+    if (root == NULL){
+        return NULL;
+    }
+
+    if (root->data > n1 && root->data > n2){
+        return lca(root->left, n1, n2);
+    }
+
+    if (root->data < n1 && root->data < n2){
+        return lca(root->right, n1, n2);
+    }
+
+    return root;
+}
+
 
 int main(){
     node*root = build();
@@ -167,6 +197,8 @@ int main(){
     inorder(root);
     cout<<endl;
     bfs(root);
+    cout<<isBST(root)<<endl;
+    cout<<lca(root,3,1)->data;
 
 
 
